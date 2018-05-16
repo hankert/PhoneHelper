@@ -1,8 +1,11 @@
-package flowbank.daggertest;
+package flowbank.daggertest.ui.activity;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.TabLayout;
+import android.support.v4.view.PagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -13,17 +16,23 @@ import android.widget.Toast;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import flowbank.daggertest.R;
+import flowbank.daggertest.ui.adapter.ViewPagerAdapter;
 
 public class MainActivity extends AppCompatActivity {
 
 
-    private static final String TAG = "MainActivity";
+
     @BindView(R.id.drawer_layout)
     DrawerLayout mDrawerLayout;
     @BindView(R.id.navigation_view)
     NavigationView mNavigationView;
     @BindView(R.id.tool_bar)
     Toolbar mToolBar;
+    @BindView(R.id.tab_layout)
+    TabLayout mTabLayout;
+    @BindView(R.id.view_pager)
+    ViewPager mViewPager;
 
     private View headerView;
 
@@ -67,6 +76,20 @@ public class MainActivity extends AppCompatActivity {
 //            }
 //        });
 
+        initDrawerLayout();
+
+        initTabLayout();
+
+    }
+
+    private void initTabLayout() {
+        PagerAdapter  adapter = new ViewPagerAdapter(getSupportFragmentManager());
+        mViewPager.setAdapter(adapter);
+        mTabLayout.setupWithViewPager(mViewPager);
+
+    }
+
+    private void initDrawerLayout() {
         headerView = mNavigationView.getHeaderView(0);
         headerView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -101,8 +124,5 @@ public class MainActivity extends AppCompatActivity {
         ActionBarDrawerToggle drawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, mToolBar, R.string.open, R.string.close);
         drawerToggle.syncState();
         mDrawerLayout.addDrawerListener(drawerToggle);
-
-
-
     }
 }
