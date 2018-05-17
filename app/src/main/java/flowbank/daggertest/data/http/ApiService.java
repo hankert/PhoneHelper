@@ -1,4 +1,4 @@
-package flowbank.daggertest.http;
+package flowbank.daggertest.data.http;
 
 import flowbank.daggertest.bean.AppInfo;
 import flowbank.daggertest.bean.PageBean;

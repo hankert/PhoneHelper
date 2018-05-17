@@ -2,8 +2,8 @@ package flowbank.daggertest.data;
 
 import flowbank.daggertest.bean.AppInfo;
 import flowbank.daggertest.bean.PageBean;
-import flowbank.daggertest.http.ApiService;
-import flowbank.daggertest.http.HttpManager;
+import flowbank.daggertest.data.http.ApiService;
+import flowbank.daggertest.data.http.HttpManager;
 import retrofit2.Callback;
 
 /**
@@ -14,12 +14,18 @@ import retrofit2.Callback;
 public class RecommendModel {
 
 
+    private ApiService mApiService;
+
+    public RecommendModel(ApiService apiService) {
+        mApiService = apiService;
+    }
+
     public void getApps(Callback<PageBean<AppInfo>> callback){
 
-        HttpManager manager = new HttpManager();
-
-        ApiService apiService =  manager.getRetrofit(manager.getOKHttpClient()).create(ApiService.class);
-        apiService.getApps("{'page':0}").enqueue(callback);
+//        HttpManager manager = new HttpManager();
+//
+//        ApiService apiService =  manager.getRetrofit(manager.getOKHttpClient()).create(ApiService.class);
+        mApiService.getApps("{'page':0}").enqueue(callback);
 
     }
 

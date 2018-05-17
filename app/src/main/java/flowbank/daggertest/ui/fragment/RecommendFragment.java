@@ -16,11 +16,17 @@ import android.widget.Toast;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import flowbank.daggertest.AppApplication;
 import flowbank.daggertest.R;
 import flowbank.daggertest.bean.AppInfo;
-import flowbank.daggertest.presenter.RecommendPresenter;
+
+import flowbank.daggertest.di.component.AppComponent;
+import flowbank.daggertest.di.component.DaggerRecommendComponent;
+import flowbank.daggertest.di.module.RecommendModule;
 import flowbank.daggertest.presenter.contract.RecommendContract;
 import flowbank.daggertest.ui.adapter.RecomendAppAdatper;
 
@@ -37,8 +43,10 @@ public class RecommendFragment extends Fragment implements RecommendContract.Vie
 
     private RecomendAppAdatper mRecomendAppAdatper;
 
-    private RecommendContract.Presenter mPresenter;
-    private ProgressDialog mProgressDialog;
+    @Inject
+    RecommendContract.Presenter mPresenter;
+    @Inject
+    ProgressDialog mProgressDialog;
 
 
     @Nullable
@@ -47,10 +55,21 @@ public class RecommendFragment extends Fragment implements RecommendContract.Vie
         View view = inflater.inflate(R.layout.fragment_recommend, container, false);
 
         ButterKnife.bind(this, view);
-        mProgressDialog = new ProgressDialog(getActivity());
-        mPresenter = new RecommendPresenter(this);
+        DaggerRecommendComponent.builder()
+                .appComponent(((AppApplication)getActivity().getApplication()).getAppComponent())
+                .recommendModule(new RecommendModule(this))
+                .build()
+                .inject(this);
+
+//        mPresenter = new RecommendPresenter(this);
         initData();
         return view;
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
     }
 
     private void initData(){

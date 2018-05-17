@@ -1,4 +1,4 @@
-package flowbank.daggertest.http;
+package flowbank.daggertest.data.http;
 
 import java.util.concurrent.TimeUnit;
 

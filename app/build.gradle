@@ -28,10 +28,10 @@ dependencies {
 
     //ddagger2 依赖
     compileOnly 'org.glassfish:javax.annotation:10.0-b28'// 添加android缺失的部分javax注解
-    annotationProcessor 'com.google.dagger:dagger-compiler:2.5'//指定注解处理器
-    implementation 'com.google.dagger:dagger:2.5'// dagger公用 api
+    annotationProcessor 'com.google.dagger:dagger-compiler:2.6'//指定注解处理器
+    implementation 'com.google.dagger:dagger:2.6'// dagger公用 api
 
-    compile 'com.jakewharton:butterknife:8.4.0'
+    implementation 'com.jakewharton:butterknife:8.4.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
     implementation 'com.android.support:design:27.0.2'
     // 字体库
